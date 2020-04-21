@@ -1,5 +1,21 @@
 <h1>welcome !!!</h1>
+<br>
 
-{% for one_ctg in all_ctgs %}
-    <h4>{{ one_ctg.cat_cod }} - {{ one_ctg.cat_name }}</h4>
+<!-- resultats fournis par la view -->
+{{all_posts}}
+
+<!-- parcours de tous les posts pour affichage -->
+{% for cur_post in all_posts %}
+    <!-- <a href="{% url 'post_detail_url' cur_post.post_slug %}"><h4>{{ cur_post.post_title }}</h4></a> -->
+    <a href="{% url 'post_detail_url' cur_post.post_slug %}"><h4>{{ cur_post.post_title }}</h4></a>
+    <h6>Publié le: {{ cur_post.post_dt_creation }} Par: {{ cur_post.post_author_id }}</h6>
+    <!-- <h4>{{ cur_post.post_content|slice:":50" }}</h4> -->
+    <h4>{{ cur_post.post_content|linebreaksbr|slice:":50" }}</h4>
+    <br>
+    <h6>Tags list: {{ cur_post.tags.all }}</h6>
+    <br>
+    {% for cur_tag in cur_post.tags.all %}
+        <span>{{cur_tag.tag_name}}, </span>
+    {% endfor %}
+    <br>
 {% endfor %}
